@@ -17,7 +17,7 @@ public class ThreadChatClient implements Runnable {
             this.input = new BufferedReader(new InputStreamReader(client.getInputStream()));
             this.output = new PrintWriter(client.getOutputStream(), true);
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Impossibile connettersi al server");
+            JOptionPane.showMessageDialog(null, "Impossibile connettersi al server" + e.getMessage());
         }
         me = new Thread(this);
         me.start();
@@ -25,24 +25,21 @@ public class ThreadChatClient implements Runnable {
 
     public void run() {
         // aspetto le ricezioni di messaggi e aggiungo i messaggi alla lista
-        while (true) {
             try {
-                String mex = null;
-                while ((mex = input.readLine()) == null) {
+				while(true) {
+                String mex = input.readLine();
+                if ((mex != null) {
                 }
                 lista.add(mex);
                 lista.select(lista.getItemCount() - 1);
-            } catch (Exception e) {
+            } 
 
             }
-        }
+        } catch(IOException) {
+			JOptionPane.showMessageDialog(null, "Errore durante la lettura dal server: " + e.getMessage());
     }
-
+}
     public void spedisciMessaggioChat(String messaggio) {
-        try {
             output.println(messaggio);
-        } catch (Exception e) {
-
-        }
     }
 }
